@@ -6,19 +6,17 @@ This project is a semantic search engine for the [NamUs](https://www.namus.gov/M
 - [x] write a scraper for the database
 - [x] embed all the text
 - [x] embed the images
-- [ ] build the search front end
-- [ ] setup embedding db
-- [ ] setup front end
-- [ ] figure out search embedding
-- [ ] could go text to text and image to image and image to text and text to image
-- [ ] scraped cali db and wasted time on that
-
-- [ ] add chat to make the questions more rich
+- [ ] build the front end
+- [ ] switch to embedding db from sklearn nn
+- [ ] remove extra json data to improve embedding cost and relevance
+- [ ] test search by image
+- [ ] move cali db scraper to seperate file as there are SSL issues with their db
 
 stretch goals
 
 - [ ] use control net to convert sketches to images and then do image search on those semantically
 - [ ] live generations from the sketches and then doing semantic search so you can see people as you draw
+- [ ] add chat to prompt user for more details if the input is not very descriptive
 
 ## cost
 
