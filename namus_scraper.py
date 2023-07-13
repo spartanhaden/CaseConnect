@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+"""#!/usr/bin/env python3"""
 
 import glob
 import json
@@ -33,7 +33,7 @@ class NamusScraper:
 
         # add the case id to the list of downloaded cases
         for case_name in case_names:
-            case_id = case_name.split("/")[1].split(".")[0]
+            case_id = os.path.splitext(os.path.basename(case_name))[0]
             self.downloaded_cases.append(case_id)
 
         self.downloaded_cases.sort()
@@ -44,7 +44,7 @@ class NamusScraper:
 
         for image_name in image_names:
             # 'image_id'_'case_id'
-            image_id_pair = image_name.split("/")[1].split(".")[0]
+            image_id_pair = os.path.splitext(os.path.basename(image_name))[0]
             self.downloaded_images.append(image_id_pair.split("_"))
 
         print(f'found {len(self.downloaded_images)} downloaded images')
@@ -56,7 +56,7 @@ class NamusScraper:
             case = response.text
 
             # save it to a file
-            with open(f"json_cases/{case_id}.json", "w") as f:
+            with open(f"json_cases/{case_id}.json", "w", encoding="utf-8") as f:
                 f.write(case)
 
             return case_id
@@ -65,7 +65,7 @@ class NamusScraper:
 
     def get_image_links_from_case(self, case_id):
         # open the json file
-        with open(f"json_cases/{case_id}.json", "r") as f:
+        with open(f"json_cases/{case_id}.json", "r", encoding="utf-8") as f:
             case = f.read()
 
         # parse the json file
@@ -131,7 +131,10 @@ class NamusScraper:
 
     def download_new_pages(self):
         # set to the last case id that was downloaded
-        starting_case_id = int(self.downloaded_cases[-1])
+        if self.downloaded_cases:
+            starting_case_id = int(self.downloaded_cases[-1])
+        else:
+            starting_case_id = 1
         num_threads = 16
         futures = []
 
@@ -159,7 +162,7 @@ class NamusScraper:
         for i, case_name in enumerate(case_names):
             if i % 100 == 0:
                 print(f'case {i}')
-            with open(case_name, "r") as f:
+            with open(case_name, "r", encoding="utf-8") as f:
                 case = f.read()
 
                 # tokenize the case
@@ -178,7 +181,7 @@ class NamusScraper:
         case_names = glob.glob("json_cases/*.json")
 
         for i, case_name in enumerate(case_names):
-            case_id = case_name.split("/")[-1].split(".")[0]
+            case_id = os.path.splitext(os.path.basename(case_name))[0]
             self.embed_file(case_id)
 
             # print the fraction and the percentage complete two decimal places
@@ -191,7 +194,7 @@ class NamusScraper:
             return
 
         # get the json file
-        with open(f"json_cases/{case_id}.json", "r") as f:
+        with open(f"json_cases/{case_id}.json", "r", encoding="utf-8") as f:
             case = f.read()
 
         embedding = openai.Embedding.create(input=case, model="text-embedding-ada-002")["data"][0]["embedding"]
@@ -205,27 +208,27 @@ class NamusScraper:
 
 if __name__ == "__main__":
     scraper = NamusScraper()
-    # scraper.download_new_pages()
-    # scraper.download_new_images()
-    # scraper.tokenize_all_the_files()
-    # scraper.embed_all_the_case_files()
+    scraper.download_new_pages()
+    scraper.download_new_images()
+    scraper.tokenize_all_the_files()
+    scraper.embed_all_the_case_files()
 
     clipper = Clipper('cpu')
 
-    search = Search(clipper)
-    # search = Search(None)
+    #search = Search(clipper)
+    #search = Search(None)
 
-    search.run()
+    #search.run()
 
-    # count = 0
-    # start_time = time.time()
+    count = 0
+    start_time = time.time()
 
-    # for i, (case_id, image_id) in enumerate(scraper.downloaded_images):
-    #     successful = clipper.embed_image(case_id, image_id)
-    #     if successful:
-    #         count += 1
+    for i, (case_id, image_id) in enumerate(scraper.downloaded_images):
+        successful = clipper.embed_image(case_id, image_id)
+        if successful:
+            count += 1
 
-    #     # print the image rate of count since start_time
-    #     rate = count / (time.time() - start_time)
+        # print the image rate of count since start_time
+        rate = count / (time.time() - start_time)
 
-    #     print(f'{i + 1}/{len(scraper.downloaded_images)} = {i/len(scraper.downloaded_images):.2%} - {rate:.2f} images/s')
+        print(f'{i + 1}/{len(scraper.downloaded_images)} = {i/len(scraper.downloaded_images):.2%} - {rate:.2f} images/s')

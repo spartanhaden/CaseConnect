@@ -25,7 +25,7 @@ class Clipper:
         self.tokenizer = open_clip.get_tokenizer('ViT-bigG-14')
 
     def embed_image(self, case_id, image_id):
-        # check if the image embedidngs have already been saved
+        # check if the image embeddings have already been saved (typo fix)
         if os.path.isfile(f'image_embeddings/{case_id}_{image_id}.json'):
             # print(f'image {case_id}_{image_id} has already been embedded')
             return False
@@ -83,7 +83,7 @@ class Clipper:
             text_embedding /= text_embedding.norm(dim=-1, keepdim=True)
         print(f"encoded text in {time.time() - start_time} seconds")
 
-        normie_embedding = text_embedding.cpu().numpy()
+        normie_embedding = text_embedding.cpu().numpy().flatten() #adjusted to flatten to a 2D array
         return normie_embedding
 
         # with torch.no_grad(), torch.cuda.amp.autocast():

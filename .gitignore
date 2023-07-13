@@ -132,3 +132,16 @@ json_cases/*
 case_images/*
 image_embeddings/*
 text_embeddings/*
+
+# ADDED THESE TO MERGE (React & Axios)
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
