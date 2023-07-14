@@ -17,7 +17,7 @@ function Cases() {
     <div>
       <h1>All Cases</h1>
       {cases.map((caseData) => (
-        <div key={caseData.id}>
+        <div key={caseData.id} className="result">
           <h2>
             <Link to={`/case/${caseData.id}`}>
               Case {caseData.id}: {caseData.name}

@@ -208,9 +208,15 @@ class Search:
 
     def load_all_cases(self):
         case_files = glob.glob('json_cases/*.json')
+        case_files.sort(key=lambda f: int(f.split('\\')[-1].split('.')[0]))  # sort filenames by numeric part
         cases = []
         for file in case_files:
-            with open(file, 'r') as f:
-                case = json.load(f)
-                cases.append(case)
+            try:
+                #print(f"Attempting to load: {file}")
+                with open(file, 'r', encoding='utf-8') as f:
+                    case = json.load(f)
+                    case['name'] = f"{case['subjectIdentification']['firstName']} {case['subjectIdentification']['lastName']}"  # Add person's name at top level
+                    cases.append(case)
+            except Exception as e:
+                print(f"Error loading {file}: {e}")
         return cases
