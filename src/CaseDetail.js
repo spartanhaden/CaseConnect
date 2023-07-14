@@ -16,7 +16,7 @@ function CaseDetail({ username }) {
   }, [caseId]);
 
   return (
-    <div>
+    <div className="case-detail">
       {caseData && (
         <div>
           <h1>Case {caseId}</h1>

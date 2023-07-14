@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 from datetime import datetime
+import tempfile
 import traceback
 
 app = Flask(__name__)
@@ -164,7 +165,7 @@ def search_by_image():
         return jsonify(error='No selected file in the request.'), 400
     if file:
         filename = secure_filename(file.filename)
-        filepath = os.path.join('/tmp', filename)
+        filepath = os.path.join(tempfile.gettempdir(), filename)
         file.save(filepath)
         results = search.search_with_image_clip(filepath)
         os.remove(filepath)
