@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { ThemeContext } from "./ThemeContext";
 
 function Login({ onLogin }) {
   // Accept a login handler as a prop
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { theme } = useContext(ThemeContext); // <-- Use the theme context
+
+  const appStyle = {
+    backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+    color: theme === "light" ? "#333" : "#f0f0f0",
+  };
 
   const login = async () => {
     try {
@@ -18,7 +25,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
+    <div className="loginDiv" style={appStyle}>
       <input
         type="text"
         placeholder="Username"
@@ -31,7 +38,9 @@ function Login({ onLogin }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={login}>Login</button>
+      <button className="loginButton" onClick={login}>
+        Login
+      </button>
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );

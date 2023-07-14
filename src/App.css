@@ -1,21 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #333;
+}
+
 nav {
   display: flex;
   gap: 10px;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: var(--bg-color);
 }
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Align content to the top */
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+  color: var(--text-color);
 }
+
 .inputContainer,
 .resultsContainer {
   display: flex;
@@ -92,6 +99,82 @@ nav {
   background-color: #0056b3;
 }
 
+.darkModeButton {
+  font-size: 0.9em;
+  padding: 3px 3px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #233242;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.darkModeButton:hover {
+  background-color: #32485f;
+}
+
+.loginButton {
+  font-size: 0.9em;
+  padding: 3px 3px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: #0056b3;
+}
+
+.loginDiv {
+  display: flex;
+  justify-content: left;
+  gap: 6px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.logoutButton {
+  font-size: 0.9em;
+  padding: 3px 3px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: #0056b3;
+}
+
+.registerButton {
+  font-size: 0.9em;
+  padding: 3px 3px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registerButton:hover {
+  background-color: #0056b3;
+}
+
+.registerDiv {
+  display: flex;
+  justify-content: left;
+  gap: 6px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .result {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -102,4 +185,26 @@ nav {
 .case-detail {
   padding-left: 20px;
   padding-bottom: 20px;
+}
+
+.discussionDiv {
+  display: flex;
+  gap: 6px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.addCommentButton {
+  font-size: 0.9em;
+  padding: 4px 4px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addCommentButton {
+  background-color: #0056b3;
 }

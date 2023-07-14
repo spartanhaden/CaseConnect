@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { ThemeContext } from "./ThemeContext";
 
 function Register({ onLogin }) {
   // Accept a login handler as a prop
@@ -7,6 +8,12 @@ function Register({ onLogin }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { theme } = useContext(ThemeContext); // <-- Use the theme context
+
+  const appStyle = {
+    backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+    color: theme === "light" ? "#333" : "#f0f0f0",
+  };
 
   const register = async () => {
     try {
@@ -23,7 +30,7 @@ function Register({ onLogin }) {
   };
 
   return (
-    <div>
+    <div className="registerDiv" style={appStyle}>
       <input
         type="text"
         placeholder="Username"
@@ -42,7 +49,9 @@ function Register({ onLogin }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={register}>Register</button>
+      <button className="registerButton" onClick={register}>
+        Register
+      </button>
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );

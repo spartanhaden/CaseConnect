@@ -83,7 +83,7 @@ class Clipper:
             text_embedding /= text_embedding.norm(dim=-1, keepdim=True)
         print(f"encoded text in {time.time() - start_time} seconds")
 
-        normie_embedding = text_embedding.cpu().numpy().flatten() #adjusted to flatten to a 2D array
+        normie_embedding = text_embedding.cpu().numpy().flatten() #adjusted to flatten to a 1D array
         return normie_embedding
 
         # with torch.no_grad(), torch.cuda.amp.autocast():

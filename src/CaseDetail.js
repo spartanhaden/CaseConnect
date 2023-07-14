@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import DiscussionThread from "./DiscussionThread";
+import { ThemeContext } from "./ThemeContext";
 
 function CaseDetail({ username }) {
   const { caseId } = useParams();
   const [caseData, setCaseData] = useState(null);
+  const { theme } = useContext(ThemeContext);
+
+  const appStyle = {
+    backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+    color: theme === "light" ? "#333" : "#f0f0f0",
+  };
 
   useEffect(() => {
     const fetchCase = async () => {
@@ -16,7 +23,7 @@ function CaseDetail({ username }) {
   }, [caseId]);
 
   return (
-    <div className="case-detail">
+    <div className="case-detail" style={appStyle}>
       {caseData && (
         <div>
           <h1>Case {caseId}</h1>
@@ -131,6 +138,7 @@ function CaseImages({ images }) {
           <img
             src={`http://localhost:5000${image.files.original.href}`}
             alt={image.caption}
+            className="case-image"
           />
           <p>Caption: {image.caption}</p>
         </div>

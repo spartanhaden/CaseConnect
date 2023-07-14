@@ -128,16 +128,12 @@ class Search:
         image_embedding = self.clipper.embed_raw_image(image)
 
         # get the text nearest neighbors
-        distances, indices = self.text_nearest_neighbors_ada_2.kneighbors([image_embedding])
+        distances, indices = self.image_nearest_neighbors_open_clip.kneighbors([image_embedding])
 
-        # get a list of length self.knn_amount of case_ids from text_embedding_and_case_id_list
-        case_id_list = [self.text_embedding_and_case_id_list[index][1] for index in indices[0]]
+        # get a list of length self.knn_amount of case_ids from image_embedding_and_case_id_and_image_id_list
+        case_id_list = [self.image_embedding_and_case_id_and_image_id_list[index][1] for index in indices[0]]
 
         print(f'case_id_list: {case_id_list}')
-
-        # TODO test this and logic
-        
-        result = []  # Initialize result list
 
         results = []
         for case_id in case_id_list:
