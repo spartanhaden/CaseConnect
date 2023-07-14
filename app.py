@@ -123,8 +123,16 @@ def get_saved_searches(case_id):
         'timestamp': search.timestamp
     } for search in searches]), 200
 
+def get_person_name(case_id):
+    try:
+        with open(f'json_cases/{case_id}.json', 'r') as f:
+            case_json = json.load(f)
+            return {'firstName': case_json['subjectIdentification']['firstName'], 'lastName': case_json['subjectIdentification']['lastName']}
+    except FileNotFoundError:
+        return {'firstName': 'Unknown', 'lastName': 'Unknown'}
+
 @app.route('/search', methods=['POST'])
-def search():
+def search_route():
     data = request.json
     if 'query' not in data:
         return jsonify(error='No query provided in the request body.'), 400
@@ -132,7 +140,7 @@ def search():
     results = search.search_with_text_clip(data['query'])
 
     # Transforming results into list of dictionaries
-    results = [{'case_id': case_id, 'image_id': image_id} for case_id, image_id in results['case_ids']]
+    results = [{'case_id': case_id, 'image_id': image_id, 'first_name': get_person_name(case_id)['firstName'], 'last_name': get_person_name(case_id)['lastName']} for case_id, image_id in results['case_ids']]
 
     # save the search if it's related to a case
     if 'case_id' in data and 'username' in data:
@@ -161,7 +169,7 @@ def search_by_image():
         os.remove(filepath)
 
         # Transforming results into list of dictionaries
-        results = [{'case_id': result['case_id'], 'case_json': result['case_json']} for result in results]
+        results = [{'case_id': result['case_id'], 'case_json': result['case_json'], 'first_name': get_person_name(result['case_id'])['firstName'], 'last_name': get_person_name(result['case_id'])['lastName']} for result in results]
 
         return jsonify(results)  # Wrap results in jsonify
 
@@ -193,5 +201,5 @@ def case_comments(case_id):
         return jsonify(comment=new_comment.text), 201
 
 if __name__ == '__main__':
-    search = Search(Clipper())
+    # search = Search(Clipper()) For running the application locally
     app.run(host='0.0.0.0', port=5000)

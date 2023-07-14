@@ -153,7 +153,8 @@ function App() {
                   <div key={index} className="result">
                     <h2>
                       <Link to={`/case/${result.case_id}`}>
-                        Case {result.case_id}
+                        Case {result.case_id} - {result.first_name}{" "}
+                        {result.last_name}
                       </Link>
                     </h2>
                     <p>Image ID: {result.image_id}</p>
