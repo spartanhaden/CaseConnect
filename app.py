@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, session
+from flask import send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from flask_cors import CORS
@@ -29,8 +30,8 @@ class UserProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     contributions = db.Column(db.String(500))
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
+    name = db.Column(db.String(100))  # New field
+    email = db.Column(db.String(100))  # New field
     
 class Discussion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -117,7 +118,7 @@ def save_search():
 
 @app.route('/api/cases/<int:case_id>/saved_searches', methods=['GET'])
 def get_saved_searches(case_id):
-    searches = SavedSearch.query.filter_by(case_id=case_id).all()
+    searches = SavedSearch.query.filter(SavedSearch.case_id == case_id).all()
     return jsonify(saved_searches=[{
         'query': search.query,
         'timestamp': search.timestamp
@@ -199,6 +200,12 @@ def case_comments(case_id):
         db.session.add(new_comment)
         db.session.commit()
         return jsonify(comment=new_comment.text), 201
+
+@app.route('/api/CaseSets/NamUs/MissingPersons/Cases/<int:case_id>/Images/<int:image_id>/Original', methods=['GET'])
+def serve_image(case_id, image_id):
+    # find a way to determine the filename based on the case_id and image_id.
+    filename = f"{case_id}_{image_id}.jpg"
+    return send_from_directory('case_images', filename)
 
 if __name__ == '__main__':
     # search = Search(Clipper()) For running the application locally
