@@ -74,6 +74,7 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .buttonContainer {
@@ -207,4 +208,28 @@ nav {
 
 .addCommentButton {
   background-color: #0056b3;
+}
+
+.chooseFile {
+  display: flex;
+  justify-content: center;
+}
+
+.fileInputLabel {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+}
+
+.fileInputLabel:hover {
+  color: #007bff;
+}
+
+.fileInputWrapper {
+  display: grid;
+  place-items: center;
+  width: 100%;
 }

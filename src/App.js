@@ -19,10 +19,16 @@ function App() {
   const [username, setUsername] = useState(null);
 
   const { theme } = useContext(ThemeContext);
+  const [hover, setHover] = useState(false);
 
   const appStyle = {
     backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
     color: theme === "light" ? "#333" : "#f0f0f0",
+  };
+
+  const fileInputLabelStyle = {
+    backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+    color: hover ? "#007bff" : theme === "light" ? "#333" : "#f0f0f0",
   };
 
   const handleSearchByText = async () => {
@@ -143,11 +149,23 @@ function App() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                   />
-                  <input
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                    style={{ color: appStyle.color }}
-                  />
+                  <div className="chooseFile">
+                    <input
+                      id="fileInput"
+                      type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="fileInput"
+                      className="fileInputLabel"
+                      style={fileInputLabelStyle}
+                      onMouseEnter={() => setHover(true)}
+                      onMouseLeave={() => setHover(false)}
+                    >
+                      Upload an image
+                    </label>
+                  </div>
                   <div className="buttonContainer">
                     <button
                       className="searchButton"
