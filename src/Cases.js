@@ -23,16 +23,16 @@ function Cases() {
   return (
     <div style={appStyle}>
       <h1>All Cases</h1>
-      {cases.map((caseData) => (
-        <div key={caseData.id} className="result">
-          <h2>
-            <Link to={`/case/${caseData.id}`}>
-              Case {caseData.id}: {caseData.name}
-            </Link>
-          </h2>
-          {/* You can display more case data here */}
-        </div>
-      ))}
+      <div className="casesContainer">
+        {cases.map((caseData) => (
+          <Link to={`/case/${caseData.id}`} className="resultLink" key={caseData.id}>
+            <div className="result">
+              <h2>Case {caseData.id}: {caseData.name}</h2>
+              {/* You can display more case data here */}
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

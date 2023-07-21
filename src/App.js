@@ -8,6 +8,7 @@ import CaseDetail from "./CaseDetail";
 import Cases from "./Cases";
 import "./App.css";
 import { ThemeContext } from "./ThemeContext";
+import "./tailwind.output.css";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -29,6 +30,21 @@ function App() {
   const fileInputLabelStyle = {
     backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
     color: hover ? "#007bff" : theme === "light" ? "#333" : "#f0f0f0",
+  };
+
+  const inputStyle = {
+    backgroundColor: theme === "light" ? "#f0f0f0" : "#555",
+    color: theme === "light" ? "#333" : "#f0f0f0",
+    borderColor: theme === "light" ? "#ccc" : "#444654",
+  };
+
+  const buttonStyle = {
+    backgroundColor: theme === "light" ? "#233242" : "#444654",
+    color: theme === "light" ? "#f0f0f0" : "#ddd",
+  };
+
+  const resultsContainerStyle = {
+    borderColor: theme === "light" ? "#ccc" : "#444654",
   };
 
   const handleSearchByText = async () => {
@@ -112,7 +128,13 @@ function App() {
   }, [results, username, imageQuery]);
 
   return (
-    <div style={appStyle}>
+    <div
+      className={`min-h-screen ${
+        theme === "light"
+          ? "bg-gray-200 text-gray-900"
+          : "bg-gray-900 text-gray-200"
+      }`}
+    >
       <Router>
         <Navbar username={username} onLogout={() => setUsername(null)} />
         <Routes>
@@ -148,6 +170,7 @@ function App() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    style={inputStyle}
                   />
                   <div className="chooseFile">
                     <input
@@ -171,6 +194,7 @@ function App() {
                       className="searchButton"
                       onClick={handleSearchByText}
                       disabled={!query || isSearching}
+                      style={buttonStyle}
                     >
                       Search by Text
                     </button>
@@ -178,26 +202,29 @@ function App() {
                       className="searchButton"
                       onClick={handleSearchByImage}
                       disabled={!file || isSearching}
+                      style={buttonStyle}
                     >
                       Search by Image
                     </button>
                   </div>
                 </div>
-
-                <div className="resultsContainer">
+                <div className="resultsContainer" style={resultsContainerStyle}>
                   {results.map((result, index) => (
-                    <div key={index} className="result">
-                      <h2>
-                        <Link to={`/case/${result.case_id}`}>
+                    <Link
+                      to={`/case/${result.case_id}`}
+                      key={index}
+                      className="resultLink"
+                    >
+                      <div className="result">
+                        <h2>
                           Case {result.case_id} - {result.first_name}{" "}
                           {result.last_name}
-                        </Link>
-                      </h2>
-                      <p>Image ID: {result.image_id}</p>
-                    </div>
+                        </h2>
+                        <p>Image ID: {result.image_id}</p>
+                      </div>
+                    </Link>
                   ))}
                 </div>
-
                 {error && (
                   <div className="errorContainer">
                     <p>{error}</p>

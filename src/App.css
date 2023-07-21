@@ -1,33 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 :root {
   --bg-color: #f0f0f0;
   --text-color: #333;
 }
 
-nav {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  background-color: var(--bg-color);
-}
-
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Align content to the top */
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  color: var(--text-color);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .inputContainer,
 .resultsContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .inputArea {
@@ -39,6 +29,11 @@ nav {
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1em;
+}
+
+.inputArea,
+.searchButton {
+  border-radius: 8px;
 }
 
 .resultsArea {
@@ -56,18 +51,23 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px; /* Reduce this value as needed */
+  margin-bottom: 20px;
 }
 
 .main-title {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
+
 .main-subtitle {
   font-family: "Roboto", sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 30px;
 }
 
 .inputContainer {
@@ -84,20 +84,23 @@ nav {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-
+.buttonContainer {
+  gap: 15px;
+}
 .searchButton {
   font-size: 1em;
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
   color: white;
-  background-color: #007bff;
+  background-color: #233242;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .searchButton:hover {
-  background-color: #0056b3;
+  background-color: #32485f;
+  color: #f0f0f0;
 }
 
 .darkModeButton {
@@ -121,13 +124,13 @@ nav {
   border-radius: 5px;
   border: none;
   color: white;
-  background-color: #007bff;
+  background-color: #233242;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .loginButton:hover {
-  background-color: #0056b3;
+  background-color: #32485f;
 }
 
 .loginDiv {
@@ -144,13 +147,13 @@ nav {
   border-radius: 5px;
   border: none;
   color: white;
-  background-color: #007bff;
+  background-color: #233242;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .logoutButton:hover {
-  background-color: #0056b3;
+  background-color: #32485f;
 }
 
 .registerButton {
@@ -159,13 +162,13 @@ nav {
   border-radius: 5px;
   border: none;
   color: white;
-  background-color: #007bff;
+  background-color: #233242;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .registerButton:hover {
-  background-color: #0056b3;
+  background-color: #32485f;
 }
 
 .registerDiv {
@@ -177,10 +180,13 @@ nav {
 }
 
 .result {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .case-detail {
@@ -201,13 +207,13 @@ nav {
   border-radius: 5px;
   border: none;
   color: white;
-  background-color: #007bff;
+  background-color: #233242;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.addCommentButton {
-  background-color: #0056b3;
+.addCommentButton:hover {
+  background-color: #32485f;
 }
 
 .chooseFile {
@@ -216,20 +222,87 @@ nav {
 }
 
 .fileInputLabel {
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #333;
-  font-weight: bold;
+  border: 1px solid #ccc;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .fileInputLabel:hover {
-  color: #007bff;
+  background-color: #007bff;
+  color: white;
 }
 
 .fileInputWrapper {
   display: grid;
   place-items: center;
   width: 100%;
+}
+
+.case-detail h1,
+.case-detail h2 {
+  border-bottom: 0px solid currentColor;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.case-detail div {
+  margin-bottom: 2rem;
+}
+
+/* Adjust the hover effect of buttons in dark mode */
+.bg-gray-900 {
+  background-color: #32485f;
+}
+
+/* Adjust error messages for dark mode */
+.bg-gray-900 .errorContainer {
+  background-color: #b31a1a;
+  color: #f0f0f0;
+}
+
+/* Adjust results container for dark mode */
+.bg-gray-900 .result {
+  background-color: #555;
+  border: 1px solid #444;
+  color: #f0f0f0;
+}
+
+/* Adjust link colors for results in dark mode */
+.bg-gray-900 .result a {
+  color: #f0f0f0;
+}
+
+.result a:hover {
+  color: #078d92; /* light mode */
+}
+
+.bg-gray-900 .result a:hover {
+  color: #40c0ff; /* dark mode */
+}
+
+.resultLink {
+  text-decoration: none;
+  color: inherit; /* to inherit the parent color */
+  display: block;
+}
+
+.resultLink:hover .result {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust link colors for results in light mode */
+.resultLink .result {
+  color: #333; /* light mode default */
+}
+
+.resultLink:hover .result {
+  color: #078d92; /* light mode hover */
+}
+
+/* Adjust link colors for results in dark mode */
+.bg-gray-900 .resultLink .result {
+  color: #f0f0f0; /* dark mode default */
+}
+
+.bg-gray-900 .resultLink:hover .result {
+  color: #40c0ff; /* dark mode hover */
 }
