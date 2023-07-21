@@ -203,7 +203,7 @@
 }
 
 .case-container {
-  max-width: 800px; /* Adjust as per your design preference */
+  max-width: 800px;
   margin: 0 auto;
   background-color: var(--bg-color);
   padding: 20px;
@@ -273,25 +273,25 @@
   margin-bottom: 2rem;
 }
 
-/* Adjust the hover effect of buttons in dark mode */
+/* dark mode */
 .bg-gray-900 {
   background-color: #32485f;
 }
 
-/* Adjust error messages for dark mode */
+/* dark mode */
 .bg-gray-900 .errorContainer {
   background-color: #b31a1a;
   color: #f0f0f0;
 }
 
-/* Adjust results container for dark mode */
+/* dark mode */
 .bg-gray-900 .result {
   background-color: #555;
   border: 1px solid #444;
   color: #f0f0f0;
 }
 
-/* Adjust link colors for results in dark mode */
+/* dark mode */
 .bg-gray-900 .result a {
   color: #f0f0f0;
 }
@@ -306,7 +306,7 @@
 
 .resultLink {
   text-decoration: none;
-  color: inherit; /* to inherit the parent color */
+  color: inherit;
   display: block;
 }
 
@@ -314,20 +314,62 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Adjust link colors for results in light mode */
+/* light mode */
 .resultLink .result {
-  color: #333; /* light mode default */
+  color: #333;
 }
 
 .resultLink:hover .result {
   color: #078d92; /* light mode hover */
 }
 
-/* Adjust link colors for results in dark mode */
+/* dark mode */
 .bg-gray-900 .resultLink .result {
-  color: #f0f0f0; /* dark mode default */
+  color: #f0f0f0;
 }
 
 .bg-gray-900 .resultLink:hover .result {
   color: #40c0ff; /* dark mode hover */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.09em;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #007bff;
+}
+
+.discussion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-comment-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.add-comment-input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }

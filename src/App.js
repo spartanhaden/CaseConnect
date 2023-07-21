@@ -257,7 +257,7 @@ function Navbar({ username, onLogout }) {
   };
 
   return (
-    <nav style={navStyle}>
+    <nav className="navbar" style={navStyle}>
       <Link to="/">Home</Link>
       <Link to="/cases">All Cases</Link>
       {username ? (

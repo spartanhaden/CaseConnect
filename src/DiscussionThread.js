@@ -3,10 +3,9 @@ import axios from "axios";
 import { ThemeContext } from "./ThemeContext";
 
 function DiscussionThread({ caseId, username }) {
-  // Add username as a prop
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const { theme } = useContext(ThemeContext); // <-- Use the theme context
+  const { theme } = useContext(ThemeContext);
 
   const appStyle = {
     backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
@@ -29,7 +28,7 @@ function DiscussionThread({ caseId, username }) {
         `http://localhost:5000/case/${caseId}/comments`,
         {
           comment: newComment,
-          username: username, // Pass the username when posting a comment
+          username: username,
         }
       );
       setComments([...comments, response.data.comment]);
@@ -40,7 +39,7 @@ function DiscussionThread({ caseId, username }) {
   };
 
   return (
-    <div style={appStyle}>
+    <div className="discussion-container" style={appStyle}>
       <h2>Discussion :</h2>
       {comments.map((comment, index) => (
         <div key={index}>
@@ -48,14 +47,16 @@ function DiscussionThread({ caseId, username }) {
           <p>Posted by: {comment.username}</p>
         </div>
       ))}
-      <div className="discussionDiv">
+      <div className="add-comment-section">
         <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
+          className="add-comment-input"
+          placeholder="Add a comment..."
         />
         <button className="addCommentButton" onClick={handleAddComment}>
-          Add comment
+          Post Comment
         </button>
       </div>
     </div>
