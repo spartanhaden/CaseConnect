@@ -190,8 +190,33 @@
 }
 
 .case-detail {
-  padding-left: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.case-detail h1,
+.case-detail h2 {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid currentColor;
+}
+
+.case-container {
+  max-width: 800px; /* Adjust as per your design preference */
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.case-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 10px 0;
 }
 
 .discussionDiv {

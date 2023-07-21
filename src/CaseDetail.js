@@ -24,34 +24,39 @@ function CaseDetail({ username }) {
 
   return (
     <div className="case-detail" style={appStyle}>
-      {caseData && (
-        <div>
-          <h1>Case {caseId}</h1>
-          <SubjectIdentification
-            subjectIdentification={caseData.subjectIdentification}
-          />
-          <SubjectDescription
-            subjectDescription={caseData.subjectDescription}
-          />
-          <PhysicalDescription
-            physicalDescription={caseData.physicalDescription}
-          />
-          <ClothingAndAccessories
-            clothingAndAccessories={caseData.clothingAndAccessoriesArticles}
-          />
-          <Circumstances circumstances={caseData.circumstances} />
-          <LastSighting sighting={caseData.sighting} />
-          <CaseImages images={caseData.images} />
-          <CaseIdentification
-            caseIdentification={caseData.caseIdentification}
-          />
-          <InvestigatingAgencies
-            investigatingAgencies={caseData.investigatingAgencies}
-          />
-          <CaseContributors caseContributors={caseData.caseContributors} />
-          <DiscussionThread caseId={caseId} username={username} />
-        </div>
-      )}
+      <div className="case-container">
+        {caseData && (
+          <div>
+            <h1>Case {caseId}</h1>
+            <CaseImages
+              images={caseData.images}
+              subjectIdentification={caseData.subjectIdentification}
+            />
+            <SubjectIdentification
+              subjectIdentification={caseData.subjectIdentification}
+            />
+            <SubjectDescription
+              subjectDescription={caseData.subjectDescription}
+            />
+            <PhysicalDescription
+              physicalDescription={caseData.physicalDescription}
+            />
+            <ClothingAndAccessories
+              clothingAndAccessories={caseData.clothingAndAccessoriesArticles}
+            />
+            <Circumstances circumstances={caseData.circumstances} />
+            <LastSighting sighting={caseData.sighting} />
+            <CaseIdentification
+              caseIdentification={caseData.caseIdentification}
+            />
+            <InvestigatingAgencies
+              investigatingAgencies={caseData.investigatingAgencies}
+            />
+            <CaseContributors caseContributors={caseData.caseContributors} />
+            <DiscussionThread caseId={caseId} username={username} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -66,6 +71,26 @@ function SubjectIdentification({ subjectIdentification }) {
       <p>Nicknames: {subjectIdentification.nicknames}</p>
       <p>Min Age: {subjectIdentification.currentMinAge}</p>
       <p>Max Age: {subjectIdentification.currentMaxAge}</p>
+    </div>
+  );
+}
+
+function CaseImages({ images, subjectIdentification }) {
+  return (
+    <div>
+      <h2>
+        {subjectIdentification.firstName} {subjectIdentification.lastName}
+      </h2>
+      {images.map((image, index) => (
+        <div key={index}>
+          <img
+            src={`http://localhost:5000${image.files.original.href}`}
+            alt={image.caption}
+            className="case-image"
+          />
+          <p>Caption: {image.caption}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -125,24 +150,6 @@ function LastSighting({ sighting }) {
       <p>
         Location: {sighting.address.city}, {sighting.address.state.name}
       </p>
-    </div>
-  );
-}
-
-function CaseImages({ images }) {
-  return (
-    <div>
-      <h2>Case Images</h2>
-      {images.map((image, index) => (
-        <div key={index}>
-          <img
-            src={`http://localhost:5000${image.files.original.href}`}
-            alt={image.caption}
-            className="case-image"
-          />
-          <p>Caption: {image.caption}</p>
-        </div>
-      ))}
     </div>
   );
 }
