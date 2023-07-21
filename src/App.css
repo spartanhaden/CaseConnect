@@ -98,11 +98,6 @@
   transition: background-color 0.3s ease;
 }
 
-.searchButton:hover {
-  background-color: #32485f;
-  color: #f0f0f0;
-}
-
 .darkModeButton {
   font-size: 0.9em;
   padding: 3px 3px;
