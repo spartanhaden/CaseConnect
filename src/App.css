@@ -3,276 +3,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-:root {
-  --bg-color: #f0f0f0;
-  --text-color: #333;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.inputContainer,
-.resultsContainer {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.inputArea {
-  height: auto;
-  max-width: 600px;
-  margin: 15px 0;
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1em;
-}
-
-.inputArea,
-.searchButton {
-  border-radius: 8px;
-}
-
-.resultsArea {
-  height: 50vh;
-  margin: 10px 0;
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1em;
-  overflow: auto;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.main-title {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-.main-subtitle {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  text-align: center;
-  font-size: 1.5em;
-  margin-bottom: 30px;
-}
-
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.buttonContainer {
-  gap: 15px;
-}
-.searchButton {
-  font-size: 1em;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.searchButton:hover {
-  background-color: #32485f;
-  color: #f0f0f0;
-}
-
-.darkModeButton {
-  font-size: 0.9em;
-  padding: 3px 3px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.darkModeButton:hover {
-  background-color: #32485f;
-}
-
-.loginButton {
-  font-size: 0.9em;
-  padding: 3px 3px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.loginButton:hover {
-  background-color: #32485f;
-}
-
-.loginDiv {
-  display: flex;
-  justify-content: left;
-  gap: 6px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.logoutButton {
-  font-size: 0.9em;
-  padding: 3px 3px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.logoutButton:hover {
-  background-color: #32485f;
-}
-
-.registerButton {
-  font-size: 0.9em;
-  padding: 3px 3px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.registerButton:hover {
-  background-color: #32485f;
-}
-
-.registerDiv {
-  display: flex;
-  justify-content: left;
-  gap: 6px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.result {
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.result:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.case-detail {
-  padding: 20px 0;
-  font-family: "Roboto", sans-serif;
-}
-
-.case-detail h1,
-.case-detail h2 {
-  text-align: center;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid currentColor;
-}
-
-.case-container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: var(--bg-color);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.case-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin: 10px 0;
-}
-
-.discussionDiv {
-  display: flex;
-  gap: 6px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.addCommentButton {
-  font-size: 0.9em;
-  padding: 4px 4px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #233242;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.addCommentButton:hover {
-  background-color: #32485f;
-}
-
-.chooseFile {
-  display: flex;
-  justify-content: center;
-}
-
-.fileInputLabel {
-  border: 1px solid #ccc;
-  transition: background-color 0.1s ease, color 0.1s ease;
-}
-
-.fileInputLabel:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.fileInputWrapper {
-  display: grid;
-  place-items: center;
-  width: 100%;
-}
-
-.case-detail h1,
-.case-detail h2 {
-  border-bottom: 0px solid currentColor;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.case-detail div {
-  margin-bottom: 2rem;
-}
-
 /* dark mode */
 .bg-gray-900 {
   background-color: #32485f;
@@ -332,6 +62,18 @@
   color: #40c0ff; /* dark mode hover */
 }
 
+.bg-gray-900 .case-detail {
+  color: #f0f0f0;
+}
+
+.bg-gray-900 .case-detail a {
+  color: #333;
+}
+
+.bg-gray-900 .case-detail a:hover {
+  color: #40c0ff;
+}
+
 .navbar {
   display: flex;
   justify-content: center;
@@ -372,4 +114,72 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.case-detail h1,
+.case-detail h2 {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 0px solid currentColor;
+}
+
+.case-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding-bottom: 0;
+}
+
+.case-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 10px 0;
+}
+
+.case-detail div {
+  margin-bottom: 2rem;
+}
+
+.case-detail p {
+  margin-bottom: 0.5rem;
+}
+
+.case-image {
+  max-width: 60%;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+/* Card styles for sections */
+.case-detail div {
+  background-color: white; /* or any other suitable color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.case-detail h2 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.case-detail h1 {
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }

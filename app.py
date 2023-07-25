@@ -31,8 +31,8 @@ class UserProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     contributions = db.Column(db.String(500))
-    name = db.Column(db.String(100))  # New field
-    email = db.Column(db.String(100))  # New field
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
     
 class Discussion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -83,8 +83,8 @@ def get_user(username):
         return jsonify(
             username=user.username, 
             contributions=user.profile.contributions,
-            name=user.profile.name,  # Return the new field
-            email=user.profile.email  # Return the new field
+            name=user.profile.name,
+            email=user.profile.email
         )
     else:
         return jsonify(message="User not found."), 404
@@ -96,8 +96,8 @@ def update_user(username):
         user = User.query.filter_by(username=username).first()
         if user:
             user.profile.contributions = data.get('contributions', user.profile.contributions)
-            user.profile.name = data.get('name', user.profile.name)  # Update the new field
-            user.profile.email = data.get('email', user.profile.email)  # Update the new field
+            user.profile.name = data.get('name', user.profile.name)
+            user.profile.email = data.get('email', user.profile.email)
             db.session.commit()
             return jsonify(message="User updated."), 200
         else:

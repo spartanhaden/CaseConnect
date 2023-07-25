@@ -11,7 +11,7 @@ function CaseDetail({ username }) {
 
   const appStyle = {
     backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
-    color: theme === "light" ? "#333" : "#f0f0f0",
+    color: theme === "light" ? "#333" : "#333",
   };
 
   useEffect(() => {

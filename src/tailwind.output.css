@@ -594,6 +594,8 @@ video {
 
 .container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media (min-width: 640px) {
@@ -661,6 +663,9 @@ nav {
   display: flex;
   flex-direction: column;
   width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .inputArea {
@@ -690,19 +695,22 @@ nav {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  /* Reduce this value as needed */
 }
 
 .main-title {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 .main-subtitle {
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 0px;
 }
 
 .inputContainer {
@@ -733,7 +741,6 @@ nav {
 
 .searchButton:hover {
   background-color: #32485f;
-  color: #f0f0f0;
 }
 
 .darkModeButton {
@@ -816,11 +823,17 @@ nav {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .case-detail {
-  padding-left: 20px;
-  padding-bottom: 20px;
+  font-family: "Roboto", sans-serif;
 }
 
 .discussionDiv {
@@ -857,6 +870,8 @@ nav {
   cursor: pointer;
   color: #333;
   font-weight: bold;
+  border: 1px solid #ccc;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .fileInputLabel:hover {

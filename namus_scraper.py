@@ -141,7 +141,7 @@ class NamusScraper:
         # Create a ThreadPoolExecutor with 8 worker threads
         with ThreadPoolExecutor(max_workers=num_threads) as executor:
             # Submit tasks to the executor
-            for case_id in range(starting_case_id, starting_case_id + 1000):
+            for case_id in range(starting_case_id, starting_case_id + 6000):
                 future = executor.submit(self.get_case_from_api, case_id)
                 futures.append(future)
 
@@ -208,8 +208,8 @@ class NamusScraper:
 
 if __name__ == "__main__":
     scraper = NamusScraper()
-    scraper.download_new_pages()
-    scraper.download_new_images()
+    #scraper.download_new_pages()
+    #scraper.download_new_images()
     scraper.tokenize_all_the_files()
     scraper.embed_all_the_case_files()
 
