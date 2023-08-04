@@ -6,7 +6,7 @@ This project is a semantic search engine for the [NamUs](https://www.namus.gov/M
 - [x] write a scraper for the database
 - [x] embed all the text
 - [x] embed the images
-- [ ] build the front end
+- [x] build the front end
 - [ ] switch to embedding db from sklearn nn
 - [ ] remove extra json data to improve embedding cost and relevance
 - [ ] test search by image

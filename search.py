@@ -29,6 +29,8 @@ class Search:
         self.image_nearest_neighbors_open_clip = self.load_image_nearest_neighbors()
 
     def load_text_embeddings(self):
+        if not os.path.exists('text_embeddings'):
+            raise Exception('text_embeddings directory does not exist.')
         # make list of pairs of embedding and case_id that is indices
         text_embedding_and_case_id = []
 
@@ -36,7 +38,7 @@ class Search:
         embedding_file_paths.sort()
 
         for filepath in embedding_file_paths:
-            case_id = int(filepath.split('/')[-1].split('.')[0])
+            case_id = int(filepath.split(os.sep)[-1].split('.')[0])
 
             with open(filepath, 'r') as f:
                 embedding = json.load(f)
@@ -52,6 +54,8 @@ class Search:
         return text_embedding_and_case_id
 
     def load_image_embeddings(self):
+        if not os.path.exists('image_embeddings'):
+            raise Exception('image_embeddings directory does not exist.')
         # make a list of pairs of embedding and case_id and image_id
         image_embedding_and_case_id_and_image_id = []
 
@@ -59,8 +63,8 @@ class Search:
         image_embedding_file_paths.sort()
 
         for filepath in image_embedding_file_paths:
-            case_id = int(filepath.split('/')[-1].split('_')[0])
-            image_id = int(filepath.split('/')[-1].split('_')[1].split('.')[0])
+            case_id = int(filepath.split(os.sep)[-1].split('_')[0])  # Adjusted to use os.sep as path separator
+            image_id = int(filepath.split(os.sep)[-1].split('_')[1].split('.')[0])  # Adjusted to use os.sep as path separator
 
             with open(filepath, 'r') as f:
                 embedding = json.load(f)
@@ -95,7 +99,7 @@ class Search:
 
     def search_with_text_clip(self, text):
         # get the embedding
-        text_embedding = self.clipper.get_text_embedding(text)
+        text_embedding = self.clipper.embed_text(text)
 
         # get the image nearest neighbors
         distances, indices = self.image_nearest_neighbors_open_clip.kneighbors([text_embedding])
@@ -104,6 +108,11 @@ class Search:
         case_id_and_image_id_list = [self.image_embedding_and_case_id_and_image_id_list[index][1:] for index in indices[0]]
 
         print(f'case_id_and_image_id_list: {case_id_and_image_id_list}')
+        
+        # convert the list to a dictionary
+        result = {'case_ids': case_id_and_image_id_list}
+        return result
+        # return case_id_and_image_id_list
 
         # TODO test this and logic
 
@@ -113,26 +122,37 @@ class Search:
             image = Image.open(image_filepath)
         except:
             print(f'could not open image at {image_filepath}')
-            return
+            return []
 
         # get the embedding
         image_embedding = self.clipper.embed_raw_image(image)
 
         # get the text nearest neighbors
-        distances, indices = self.text_nearest_neighbors_ada_2.kneighbors([image_embedding])
+        distances, indices = self.image_nearest_neighbors_open_clip.kneighbors([image_embedding])
 
-        # get a list of length self.knn_amount of case_ids from text_embedding_and_case_id_list
-        case_id_list = [self.text_embedding_and_case_id_list[index][1] for index in indices[0]]
+        # get a list of length self.knn_amount of case_ids from image_embedding_and_case_id_and_image_id_list
+        case_id_list = [self.image_embedding_and_case_id_and_image_id_list[index][1] for index in indices[0]]
 
         print(f'case_id_list: {case_id_list}')
 
-        # TODO test this and logic
+        results = []
+        for case_id in case_id_list:
+            with open(f'json_cases{os.sep}{case_id}.json', 'r') as f:
+                case_json = json.load(f)
+                results.append({
+                    'case_id': case_id,
+                    'case_json': case_json,
+                })
+
+        return results
 
     def search_with_text_ada_2(self, text):
         embedding = openai.Embedding.create(input=text, model="text-embedding-ada-002")["data"][0]["embedding"]
 
         # get the image nearest neighbors
         distances, indices = self.text_nearest_neighbors_ada_2.kneighbors([embedding])
+        
+        result = []  # Initialize result list
 
         # get a list of length self.knn_amount of pairs of case_id from self.text_embedding_and_case_id_list
         for i in range(self.knn_amount):
@@ -152,8 +172,13 @@ class Search:
             with open(f'json_cases/{case_id}.json', 'r') as f:
                 case_json = json.load(f)
                 print(f'case_json: {case_json}')
-
+            result.append({
+                        'case_id': case_id,
+                        'distance': distance,
+                        'case_json': case_json,
+                    })
         embed()
+        return result
 
         # TODO test this and logic
 
@@ -176,3 +201,18 @@ class Search:
             else:
                 print('invalid query type')
                 continue
+
+    def load_all_cases(self):
+        case_files = glob.glob('json_cases/*.json')
+        case_files.sort(key=lambda f: int(f.split('\\')[-1].split('.')[0]))  # sort filenames by numeric part
+        cases = []
+        for file in case_files:
+            try:
+                #print(f"Attempting to load: {file}")
+                with open(file, 'r', encoding='utf-8') as f:
+                    case = json.load(f)
+                    case['name'] = f"{case['subjectIdentification']['firstName']} {case['subjectIdentification']['lastName']}"  # Add person's name at top level
+                    cases.append(case)
+            except Exception as e:
+                print(f"Error loading {file}: {e}")
+        return cases
